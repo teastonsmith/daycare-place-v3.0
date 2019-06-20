@@ -1,0 +1,85 @@
+import React, { Component } from 'react';
+import axios from 'axios';
+import { withRouter } from 'react-router-dom';
+
+class RegisterForm extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			username: '',
+			password: '',
+			firstname: '',
+			lastname: '',
+			email: '',
+		};
+	}
+	handleUserRegister = e => {
+		e.preventDefault();
+		const { firstname, lastmame, email, username, password } = this.state;
+		axios
+			.post('/auth/register', {
+				firstname,
+				lastmame,
+				email,
+				username,
+				password,
+			})
+			.then(res => {
+				this.props.history.push('/details');
+			})
+			.catch(err => {
+				console.log(err);
+			});
+		e.target.firstname.value = '';
+		e.target.lastname.value = '';
+		e.target.email.value = '';
+		e.target.password.value = '';
+		e.target.username.value = '';
+	};
+	handleRegisterInfoUpdate = e => {
+		this.setState({
+			[e.target.name]: e.target.value,
+		});
+	};
+	render() {
+		return (
+			<div>
+				<form onSubmit={this.handleUserRegister}>
+					<input
+						type='text'
+						placeholder='first name'
+						name='firstname'
+						onChange={this.handleRegisterInfoUpdate}
+					/>
+					<input
+						type='text'
+						placeholder='last name'
+						name='lastname'
+						onChange={this.handleRegisterInfoUpdate}
+					/>
+					<input
+						type='email'
+						placeholder='email'
+						name='email'
+						onChange={this.handleRegisterInfoUpdate}
+					/>
+					<input
+						type='text'
+						placeholder='username'
+						name='username'
+						onChange={this.handleRegisterInfoUpdate}
+					/>
+					<input
+						type='password'
+						placeholder='password'
+						name='password'
+						onChange={this.handleRegisterInfoUpdate}
+					/>
+					<button>Register</button>
+				</form>
+			</div>
+		);
+	}
+}
+
+export default withRouter(RegisterForm);
