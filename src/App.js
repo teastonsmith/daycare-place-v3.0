@@ -1,12 +1,24 @@
 import React from 'react';
 import './App.css';
+import router from './router';
+import { HashRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-function App() {
-  return (
-    <div className="App">
+import Navbar from './Components/Navbar/Navbar';
 
-    </div>
-  );
+const App = () => {
+	return (
+		<HashRouter>
+			<Navbar />
+			{router}
+		</HashRouter>
+	);
+};
+
+function mapStateToProps(state) {
+	return {
+		key: state.store,
+	};
 }
 
-export default App;
+export default connect(mapStateToProps)(App);
