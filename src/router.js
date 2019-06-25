@@ -8,6 +8,8 @@ import Calendar from './Components/Calendar/Calendar';
 import Gallery from './Components/Gallery/Gallery';
 import Main from './Components/Main/Main';
 import Store from './Components/Store/Store';
+import Contact from './Components/About/Contact'
+import About from './Components/About/About'
 
 export default (
 	<Switch>
@@ -18,5 +20,7 @@ export default (
 		<Route path='/gallery' component={Gallery} />
 		<Route exact path='/' component={Main} />
 		<Route path='/store' component={Store} />
+		<Route path='/contact' component={Contact}/>
+		<Route path='/about' component={About}/>
 	</Switch>
 );
