@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function TestimonialDisplay() {
   return (
-    <div>
+    <div >
       <p>Testimonial Display</p>
     </div>
   )

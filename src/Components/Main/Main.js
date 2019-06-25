@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Carousel from './Carousel';
-import Intro from './Intro'
 import TestimonialDisplay from './TestimonialDisplay';
 
 const Main = () => {
@@ -11,12 +10,22 @@ const Main = () => {
 		<div>
 			<Carousel />
 			<div className='main-body'>
-				<Intro />
-				<Link to='/calendar' className='main-body-content'/>
-				<Link to='/blog' className='main-body-content'/>
-				<Link to='/contact' className='main-body-content'/>
-				<Link to='/about' className='main-body-content'/>
-				<TestimonialDisplay />
+				<div className='main-body-content'>Intro</div>
+				<Link to='/calendar' className='main-body-content'>
+					Calendar
+				</Link>
+				<Link to='/blog' className='main-body-content'>
+					Blog
+				</Link>
+				<Link to='/contact' className='main-body-content'>
+					Contact
+				</Link>
+				<Link to='/about' className='main-body-content'>
+					About
+				</Link>
+				<div className='main-body-content'>
+					<TestimonialDisplay />
+				</div>
 			</div>
 		</div>
 	);
