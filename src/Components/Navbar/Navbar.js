@@ -14,7 +14,7 @@ const Navbar = ({ username }) => {
 					<Link to='/login'>Login</Link>
 				</Button>
 				<span>{username && username}</span>
-				<div className='logo'></div>
+				<Logo className='logo'></Logo>
 			</nav>
 		</div>
 	);
@@ -36,5 +36,12 @@ const Button = styled.button`
 	height: 2rem;
 	width: 5rem;
 	margin: 1rem 3rem;
-	padding: .5rem
+	padding: .5rem;
+	border-radius: 10px
 `;
+
+const Logo = styled.div`
+border: 3px solid blue;
+margin: 0 0 7rem 40%;
+border-radius: 10px
+`
