@@ -1,0 +1,1 @@
+SELECT * FROM users INNER JOIN balances ON (users.user_id = balances.balance);

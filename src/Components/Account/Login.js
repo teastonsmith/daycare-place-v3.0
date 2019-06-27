@@ -16,8 +16,9 @@ class Login extends Component {
 	}
 	render() {
 		return (
-			<div className='Login'>
+			<div className='Login' id='side-component'>
 				<RegisterForm />
+				<br/>
 				<LoginForm />
 			</div>
 		);

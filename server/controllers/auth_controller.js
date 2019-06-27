@@ -68,7 +68,7 @@ module.exports = {
 	updateUser: (req, res) => {
 		const { first_name, last_name, email, username, password } = req.body;
 		const updatedUser = {
-			id: req.params.id,
+			user_id: req.params.id,
 			first_name,
 			last_name,
 			email,

@@ -33,7 +33,6 @@ class LoginForm extends Component {
 	render() {
 		return (
 			<div>
-				<p>Login</p>
 				<form onSubmit={this.handleUserLogin}>
 					<input
 						type='text'

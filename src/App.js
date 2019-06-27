@@ -5,15 +5,15 @@ import { HashRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Navbar from './Components/Navbar/Navbar';
-import Footer from './Components/Main/Footer'
+import Footer from './Components/Main/Footer';
 
 const App = () => {
 	return (
-		<HashRouter>
-			<Navbar />
-			{router}
-			<Footer />
-		</HashRouter>
+			<HashRouter>
+				<Navbar />
+				{router}
+				<Footer />
+			</HashRouter>
 	);
 };
 
