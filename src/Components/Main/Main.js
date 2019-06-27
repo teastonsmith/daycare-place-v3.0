@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 import Carousel from './Carousel';
 import TestimonialDisplay from './TestimonialDisplay';
@@ -37,4 +37,3 @@ function mapStateToProps(reduxState) {
 }
 
 export default connect(mapStateToProps)(Main);
-

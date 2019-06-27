@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
+import {connect} from 'react-redux'
+import {updateUser} from '../../redux/reducers/userReducer'
 import { withRouter } from 'react-router-dom';
 
 class LoginForm extends Component {
@@ -22,14 +23,20 @@ class LoginForm extends Component {
 		axios
 			.post('/auth/login', { username, password })
 			.then(res => {
+				this.props.updateUser(res.data)
+				this.handleResetState()
 				this.props.history.push('/details');
 			})
 			.catch(err => {
 				console.log(err);
 			});
-		e.target.username.value = '';
-		e.target.password.value = '';
 	};
+	handleResetState = () => {
+		this.setState({
+			username: '',
+			password: ''
+		})
+	}
 	render() {
 		return (
 			<div>
@@ -53,4 +60,4 @@ class LoginForm extends Component {
 	}
 }
 
-export default withRouter(LoginForm);
+export default withRouter(connect(null, {updateUser})(LoginForm));

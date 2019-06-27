@@ -1,0 +1,1 @@
+insert into user_logins (username, password, user_id) values (${username}, ${password}, ${user_id}) returning *;

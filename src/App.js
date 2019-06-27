@@ -9,11 +9,11 @@ import Footer from './Components/Main/Footer';
 
 const App = () => {
 	return (
-			<HashRouter>
-				<Navbar />
-				{router}
-				<Footer />
-			</HashRouter>
+		<HashRouter>
+			<Navbar />
+			{router}
+			<Footer />
+		</HashRouter>
 	);
 };
 

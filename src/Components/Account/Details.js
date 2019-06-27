@@ -7,14 +7,15 @@ import { Link } from 'react-router-dom';
 
 class Details extends Component {
 	componentDidMount() {
-		axios
-			.get('/auth/details')
-			.then(res => {
-				this.props.updateUser(res.data);
-			})
-			.catch(err => {
-				this.props.history.push('/login');
-			});
+		// axios
+		// 	.get('/auth/details')
+		// 	.then(res => {
+		// 		// this.props.updateUser(res.data);
+		// 		console.log('Doing good')
+		// 	})
+		// 	.catch(err => {
+		// 		this.props.history.push('/login');
+		// 	});
 	}
 	handleUserLogout = () => {
 		axios.get('/auth/logout').then(res => {
@@ -22,6 +23,14 @@ class Details extends Component {
 			this.props.history.push('/');
 		});
 	};
+
+	handleDeleteUser = () => {
+		axios.delete('/auth/user')
+		.then(res => {
+			this.props.clearUser()
+		})
+	}
+	
 	render() {
 		return (
 			<div>
@@ -29,13 +38,13 @@ class Details extends Component {
 					<Link to='/edit'>Edit</Link>
 					<Link to='/calendar'>Calendar</Link>
 					<Link to='/billing'>Billing</Link>
-					<Link to='/delete'>Delete</Link>
 				</div>
-				{this.props.firstname && (
+				{this.props.first_name && (
 					<>
-						<p>{this.props.firstname}</p>
+						<p>{this.props.first_name}</p>
 						<p>{this.props.balance}</p>
 						<button onClick={this.handleUserLogout}>Logout</button>
+						<button onClick={this.handleDeleteUser} >Delete User</button>
 					</>
 				)}
 			</div>
@@ -44,10 +53,7 @@ class Details extends Component {
 }
 
 function mapStateToProps(reduxState) {
-	return {
-		firstname: reduxState.firstname,
-		balance: reduxState.balance,
-	};
+	return reduxState
 }
 const mapDispatchToProps = {
 	updateUser,

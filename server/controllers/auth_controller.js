@@ -9,16 +9,18 @@ module.exports = {
 		if (userFound[0]) return res.status(409).send('Email already exists');
 		const salt = bcrypt.genSaltSync(10);
 		const hash = bcrypt.hashSync(password, salt);
-		const createdUser = await db.register.user({
+		const createdUser = await db.register_user({
 			first_name,
 			last_name,
 			email,
-			username,
-			password: hash,
 		});
+		const balance = await db.create_user_balance({user_id: createdUser[0].user_id})
+		const userInfo = await db.register_user_info({username, password: hash, user_id: createdUser[0].user_id})
 		session.user = {
-			id: createdUser[0].login_id,
-			username: createdUser[0].username,
+			id: createdUser[0].user_id,
+			username: userInfo[0].username,
+			first_name: createdUser[0].first_name,
+			balance: balance[0].balance
 		};
 		res.status(200).send(session.user);
 	},
@@ -33,6 +35,8 @@ module.exports = {
 			session.user = {
 				id: userFound[0].login_id,
 				username: userFound[0].username,
+				first_name: userFound[0].first_name,
+				balance: userFound[0].balance
 			};
 			res.status(200).send(session.user);
 		} else {
@@ -79,10 +83,10 @@ module.exports = {
 		users.splice(i, 1, updatedUser);
 		res.send(users);
 	},
-	deleteUser: (req, res) => {
-		const { user_id } = req.params;
-		const i = users.findIndex(user => +user.user_id === +user_id);
-		users.splice(i, 1);
-		res.send(users);
+
+	deleteUser: async (req, res) => {
+		const db = req.app.get('db')
+	await db.delete_user({ user_id: req.session.user.id });
+	res.status(200).send('User Deleted')
 	},
 };

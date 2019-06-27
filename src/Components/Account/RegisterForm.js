@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
+import {connect} from 'react-redux'
+import {updateUser} from '../../redux/reducers/userReducer'
 
 class RegisterForm extends Component {
 	constructor(props) {
@@ -8,39 +10,46 @@ class RegisterForm extends Component {
 		this.state = {
 			username: '',
 			password: '',
-			firstname: '',
-			lastname: '',
+			first_name: '',
+			last_name: '',
 			email: '',
 		};
 	}
 	handleUserRegister = e => {
 		e.preventDefault();
-		const { firstname, lastmame, email, username, password } = this.state;
-		axios
-			.post('/auth/register', {
-				firstname,
-				lastmame,
+		const { first_name, last_name, email, username, password } = this.state;
+		axios.post('/auth/register', {
+				first_name,
+				last_name,
 				email,
 				username,
 				password,
 			})
 			.then(res => {
+				this.props.updateUser(res.data)
+				this.handleResetState()
 				this.props.history.push('/details');
 			})
 			.catch(err => {
 				console.log(err);
 			});
-		e.target.firstname.value = '';
-		e.target.lastname.value = '';
-		e.target.email.value = '';
-		e.target.password.value = '';
-		e.target.username.value = '';
+
 	};
 	handleRegisterInfoUpdate = e => {
 		this.setState({
 			[e.target.name]: e.target.value,
 		});
 	};
+
+	handleResetState= ()=>{
+this.setState({
+	username: '',
+	password: '',
+	first_name: '',
+	last_name: '',
+	email: ''
+})
+	}
 	render() {
 		return (
 			<div className='RegisterForm'>
@@ -48,13 +57,13 @@ class RegisterForm extends Component {
 					<input
 						type='text'
 						placeholder='first name'
-						name='firstname'
+						name='first_name'
 						onChange={this.handleRegisterInfoUpdate}
 					/>
 					<input
 						type='text'
 						placeholder='last name'
-						name='lastname'
+						name='last_name'
 						onChange={this.handleRegisterInfoUpdate}
 					/>
 					<input
@@ -82,4 +91,4 @@ class RegisterForm extends Component {
 	}
 }
 
-export default withRouter(RegisterForm);
+export default withRouter(connect(null, {updateUser})(RegisterForm));
