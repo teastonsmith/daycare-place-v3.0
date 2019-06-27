@@ -64,7 +64,6 @@ class Details extends Component {
 	};
 
 	render() {
-		console.log(this.props.first_name)
 		return (
 			<div>
 				<div>
