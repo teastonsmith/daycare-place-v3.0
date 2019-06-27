@@ -33,7 +33,7 @@ module.exports = {
 		const authenticated = bcrypt.compareSync(password, userFound[0].password);
 		if (authenticated) {
 			session.user = {
-				id: userFound[0].login_id,
+				id: userFound[0].user_id,
 				username: userFound[0].username,
 				first_name: userFound[0].first_name,
 				balance: userFound[0].balance
@@ -69,19 +69,15 @@ module.exports = {
 		req.session.destroy();
 		res.sendStatus(200);
 	},
-	updateUser: (req, res) => {
-		const { first_name, last_name, email, username, password } = req.body;
-		const updatedUser = {
-			user_id: req.params.id,
-			first_name,
-			last_name,
-			email,
-			username,
-			password,
-		};
-		const i = users.findIndex(user => +user.user_id === +req.params.user_id);
-		users.splice(i, 1, updatedUser);
-		res.send(users);
+	updateUser: async (req, res) => {
+		console.log(req.session.user)
+		const{first_name}=req.body
+		const db = req.app.get('db');
+		await db.update_first_name({first_name, user_id: req.session.user.id})
+		req.session.user.first_name = {
+			first_name
+		}
+		res.status(200).send(req.session.user.first_name)
 	},
 
 	deleteUser: async (req, res) => {
